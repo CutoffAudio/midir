@@ -1,3 +1,4 @@
+use std::hash::{Hash, Hasher};
 use std::sync::{Arc, Mutex};
 
 use crate::errors::*;
@@ -18,7 +19,7 @@ pub struct MidiInput {
     ignore_flags: Ignore,
 }
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct MidiInputPort {
     source: Arc<Source>,
 }
@@ -43,6 +44,14 @@ impl PartialEq for MidiInputPort {
         }
     }
 }
+
+impl Hash for MidiInputPort {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.source.unique_id().hash(state)
+    }
+}
+
+impl Eq for MidiInputPort {}
 
 impl MidiInput {
     pub fn new(client_name: &str) -> Result<Self, InitError> {
@@ -297,7 +306,7 @@ pub struct MidiOutput {
     client: Client,
 }
 
-#[derive(Clone)]
+#[derive(Debug, Clone)]
 pub struct MidiOutputPort {
     dest: Arc<Destination>,
 }
@@ -322,6 +331,14 @@ impl PartialEq for MidiOutputPort {
         }
     }
 }
+
+impl Hash for MidiOutputPort {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.dest.unique_id().hash(state)
+    }
+}
+
+impl Eq for MidiOutputPort {}
 
 impl MidiOutput {
     pub fn new(client_name: &str) -> Result<Self, InitError> {

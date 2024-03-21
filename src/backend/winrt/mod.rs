@@ -12,7 +12,7 @@ use windows::{
     Storage::Streams::{DataReader, DataWriter},
 };
 
-#[derive(Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Hash, Eq)]
 pub struct MidiInputPort {
     id: HSTRING,
 }
@@ -190,7 +190,7 @@ struct HandlerData<T> {
     user_data: Option<T>,
 }
 
-#[derive(Clone, PartialEq)]
+#[derive(Clone, PartialEq, Eq, Hash)]
 pub struct MidiOutputPort {
     id: HSTRING,
 }
