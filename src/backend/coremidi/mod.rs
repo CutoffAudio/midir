@@ -403,11 +403,13 @@ impl MidiOutput {
     }
 }
 
+#[derive(Debug)]
 enum OutputConnectionDetails {
     Explicit(OutputPort, Arc<Destination>),
     Virtual(VirtualSource),
 }
 
+#[derive(Debug)]
 pub struct MidiOutputConnection {
     client: Client,
     details: OutputConnectionDetails,

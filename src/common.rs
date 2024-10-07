@@ -328,6 +328,7 @@ impl crate::os::unix::VirtualOutput for MidiOutput {
 }
 
 /// Represents an open connection to a MIDI output port.
+#[derive(Debug)]
 pub struct MidiOutputConnection {
     imp: MidiOutputConnectionImpl,
 }
